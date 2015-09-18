@@ -1,0 +1,69 @@
+﻿<Application
+    x:Class="WindowsIoTDashboard.App.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WindowsIoTDashboard.App.Helpers"
+    xmlns:vm="using:WindowsIoTDashboard.App.ViewModels"
+    RequestedTheme="Dark">
+
+    <Application.Resources>
+        <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:WindowsIoTDashboard.App.ViewModels" />
+        <local:StringFormatConverter x:Key="StringFormatConverter" />
+        <local:LevelToMarginConverter x:Key="LevelToMarginConverter" />
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <SolidColorBrush x:Key="PageBackgroundBrush" Color="#181b24" />
+        <SolidColorBrush x:Key="CommandBarBrush" Color="#26373e" />
+        <SolidColorBrush x:Key="NavigationBrush" Color="#2e414a" />
+        <Style x:Name="PageStyle" TargetType="ScrollViewer">
+            <Setter Property="Padding" Value="24,0" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="/Assets/background.jpg" Stretch="UniformToFill" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="FlyoutPresenter">
+            <Setter Property="Background" Value="{StaticResource CommandBarBrush}" />
+        </Style>
+
+        <Style x:Key="FormBaseTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="Margin" Value="0,2,10,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FormTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,2,10,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FormTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FormPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Margin" Value="0,2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FormTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TitleTextBlockStyle}">
+            <Setter Property="Margin" Value="0,30,0,5" />
+        </Style>
+
+        <Style x:Key="RefreshButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="0,15,0,0" />
+            <Setter Property="ToolTipService.ToolTip" Value="Refresh Data" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+
+        <Style x:Key="TerminateButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="ToolTipService.ToolTip" Value="Terminate this Process" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+    </Application.Resources>
+</Application>

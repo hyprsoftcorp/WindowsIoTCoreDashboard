@@ -1,0 +1,100 @@
+﻿<local:BasePage
+    x:Class="WindowsIoTDashboard.App.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WindowsIoTDashboard.App.Pages"
+    xmlns:helpers="using:WindowsIoTDashboard.App.Helpers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"  DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="Page_Loaded">
+
+    <Page.BottomAppBar>
+        <CommandBar Background="{StaticResource CommandBarBrush}">
+            <AppBarButton x:Name="FeedbackButton" Label="Feedback" ToolTipService.ToolTip="Feedback" Background="#e81123" Visibility="{Binding FeedbackButtonVisibility}">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" />
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="FeedbackFlyout">
+                        <Grid MaxWidth="400">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Feedback" Style="{StaticResource FormTitleTextBlockStyle}" />
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{Binding FeedbackText}" />
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,0,0">
+                                <Button Command="{Binding DismissFeedbackCommand}" Margin="0,0,10,0">Dismiss</Button>
+                                <Button Command="{Binding ShowSettingsCommand}">Open Settings</Button>
+                            </StackPanel>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton x:Name="SettingsButton" Label="Settings" ToolTipService.ToolTip="Settings">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;" />
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="SettingsFlyout">
+                        <StackPanel>
+                            <TextBlock Text="Device Settings" Style="{ThemeResource FormTitleTextBlockStyle}" />
+                            <TextBlock Text="Device Name" Style="{ThemeResource FormBaseTextBlockStyle}" />
+                            <TextBox Text="{Binding Settings.DeviceName, Mode=TwoWay}" Style="{StaticResource FormTextBoxStyle}" />
+
+                            <TextBlock Text="Device Authentication" Style="{ThemeResource FormTitleTextBlockStyle}" />
+                            <TextBlock Text="Username" Style="{ThemeResource FormBaseTextBlockStyle}" />
+                            <TextBox Text="{Binding Settings.Username, Mode=TwoWay}" Style="{StaticResource FormTextBoxStyle}" />
+                            <TextBlock Text="Password" Style="{ThemeResource FormBaseTextBlockStyle}" />
+                            <PasswordBox Style="{StaticResource FormPasswordBoxStyle}" Password="{Binding Settings.Password, Mode=TwoWay}" PasswordRevealMode="Peek" />
+
+                            <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding Settings.AppVersion}" Margin="0,10,0,0" TextAlignment="Center" Foreground="Silver"/>
+                        </StackPanel>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Label="Shutdown" ToolTipService.ToolTip="Shutdown" Command="{Binding ShutdownCommand}">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E8;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Label="Reboot" ToolTipService.ToolTip="Reboot" Command="{Binding RebootCommand}">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1CD;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <SplitView x:Name="NavStrip" DisplayMode="CompactOverlay" Background="{StaticResource PageBackgroundBrush}">
+        <SplitView.Pane>
+            <StackPanel Orientation="Vertical" Background="{StaticResource NavigationBrush}">
+                <StackPanel.DataContext>
+                    <helpers:NavMenu/>
+                </StackPanel.DataContext>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="NavButton" Width="48" Height="36" Click="NavButton_Click" Background="Transparent" HorizontalAlignment="Left"
+                            ToolTipService.ToolTip="Navigation Menu Toggle">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
+                    </Button>
+                    <TextBlock Text="Navigation Menu" Margin="16,8,0,0" />
+                </StackPanel>
+                <ListBox x:Name="NavMenu" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="NavMenu_SelectionChanged" 
+                    ItemsSource="{Binding MenuItems}" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding Glyph}" Margin="2,0,0,0" ToolTipService.ToolTip="{Binding Text}" />
+                                <TextBlock Text="{Binding Text}" Margin="30,0,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Frame />
+        </SplitView.Content>
+    </SplitView>
+</local:BasePage>

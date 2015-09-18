@@ -1,0 +1,91 @@
+﻿<UserControl
+    x:Class="WindowsIoTDashboard.App.Pages.ProcessControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WindowsIoTDashboard.App.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <StackPanel x:Name="ProcessPanel">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ProcessPanel.Width" Value="275" />
+                        <Setter Target="PrivateBytesTextBlock.Text" Value="PRIVATE&#10;BYTES" />
+                        <Setter Target="WorkingSetTextBlock.Text" Value="WORKING&#10;SET" />
+                        <Setter Target="VirtualSizeTeztBlock.Text" Value="VIRTUAL&#10;SIZE" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ProcessPanel.Width" Value="350" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ProcessPanel.Width" Value="450" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Border Background="#15ffffff">
+            <Grid>
+                <StackPanel Padding="30,20">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;" Margin="0,0,10,0" />
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding ImageName}" /> (<Run Text="{Binding ProcessId}" />)
+                        </TextBlock>
+                    </StackPanel>
+                    <TextBlock Text="{Binding UserName}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="CPU" />
+                        <ProgressBar Grid.Column="1" Value="{Binding CPUUsage}" Margin="10,0" />
+                        <TextBlock Grid.Column="2" Text="{Binding CPUUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0#}%'}" />
+                    </Grid>
+                </StackPanel>
+                <Button Style="{StaticResource TerminateButtonStyle}" Command="{Binding TerminateCommand}" CommandParameter="{Binding ProcessId}" Visibility="{Binding TerminateButtonVisibility}">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="12" Glyph="&#xE106;" Margin="5" />
+                </Button>
+            </Grid>
+        </Border>
+        <Border Background="#25ffffff" Padding="20,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="PrivateBytesTextBlock" Text="PRIVATE BYTES" Style="{StaticResource CaptionTextBlockStyle}" TextAlignment="Center" />
+                <TextBlock x:Name="WorkingSetTextBlock" Grid.Column="1" Text="WORKING SET" Style="{StaticResource CaptionTextBlockStyle}" TextAlignment="Center"/>
+                <TextBlock x:Name="VirtualSizeTeztBlock" Grid.Column="2" Text="VIRTUAL SIZE" Style="{StaticResource CaptionTextBlockStyle}" TextAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" Text="{Binding PrivateWorkingSet, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" TextAlignment="Center" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding WorkingSetSize, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" TextAlignment="Center"/>
+                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding VirtualSize, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" TextAlignment="Center"/>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>
