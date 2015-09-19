@@ -14,12 +14,12 @@
         <SolidColorBrush x:Key="PageBackgroundBrush" Color="#181b24" />
         <SolidColorBrush x:Key="CommandBarBrush" Color="#26373e" />
         <SolidColorBrush x:Key="NavigationBrush" Color="#2e414a" />
-        <Style x:Name="PageStyle" TargetType="ScrollViewer">
-            <Setter Property="Padding" Value="24,0" />
-            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-            <Setter Property="Background">
+        <Style x:Key="PageStyle" TargetType="StackPanel">
+            <Setter Property="ChildrenTransitions">
                 <Setter.Value>
-                    <ImageBrush ImageSource="/Assets/background.jpg" Stretch="UniformToFill" />
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="100" IsStaggeringEnabled="True" />
+                    </TransitionCollection>
                 </Setter.Value>
             </Setter>
         </Style>

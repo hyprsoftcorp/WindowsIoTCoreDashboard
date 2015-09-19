@@ -7,22 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" DataContext="{Binding Devices, Source={StaticResource Locator}}">
 
-    <ScrollViewer Style="{StaticResource PageStyle}">
-        <StackPanel>
-            <Grid>
-                <TextBlock Text="Devices" Style="{ThemeResource HeaderTextBlockStyle}" />
-                <Button Style="{StaticResource RefreshButtonStyle}" Command="{Binding RefreshCommand}">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
-                </Button>
-            </Grid>
-            <TextBlock Text="Device Manager" Style="{ThemeResource FormTitleTextBlockStyle}" />
-            <ListView ItemsSource="{Binding Model.DeviceList}" SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:DeviceControl />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
-    </ScrollViewer>
+    <StackPanel Style="{StaticResource PageStyle}">
+        <Grid>
+            <TextBlock Text="Devices" Style="{ThemeResource HeaderTextBlockStyle}" />
+            <Button Style="{StaticResource RefreshButtonStyle}" Command="{Binding RefreshCommand}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
+            </Button>
+        </Grid>
+        <TextBlock Text="Device Manager" Style="{ThemeResource FormTitleTextBlockStyle}" />
+        <ListView ItemsSource="{Binding Model.DeviceList}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:DeviceControl />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
 </local:BasePage>

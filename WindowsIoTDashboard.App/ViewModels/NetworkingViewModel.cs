@@ -79,11 +79,13 @@ namespace WindowsIoTDashboard.App.ViewModels
         {
             try
             {
+                await _userInterfaceService.ShowBusyIndicatorAsync();
                 IpConfigModel = await _restService.GetAsync<IpConfigModel>(new Uri("api/networking/ipconfig", UriKind.Relative));
                 WifiAdapterModel = await _restService.GetAsync<WifiAdapterModel>(new Uri("api/wifi/interfaces", UriKind.Relative));
                 if (WifiAdapterModel.Interfaces.Length > 0)
                     WifiNetworksModel = await _restService.GetAsync<WifiNetworksModel>(new Uri(String.Format("api/wifi/networks?interface={0}",
                         WifiAdapterModel.Interfaces[0].GUID.ToString("D")), UriKind.Relative));
+                await _userInterfaceService.HideBusyIndicatorAsync();
             }
             catch (Exception ex)
             {

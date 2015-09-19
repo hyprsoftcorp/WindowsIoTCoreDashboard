@@ -81,7 +81,7 @@ namespace WindowsIoTDashboard.App.ViewModels
             {
                 get
                 {
-                    return _terminateCommand ?? (_terminateCommand = new RelayCommand<int>(async processId => await Parent.TerminateProcesAsync(processId), processId => processId > 0));
+                    return _terminateCommand ?? (_terminateCommand = new RelayCommand<int>(async processId => await Parent.TerminateProcesAsync(processId), processId => processId > 0 && !App.IsRunningOnWindowsIoTDevice));
                 }
             }
 
@@ -182,12 +182,12 @@ namespace WindowsIoTDashboard.App.ViewModels
                 String.Format("Are you sure you want to terminate the '{0}' process?", process.ImageName), commands, 1);
         }
 
-        public Task InitializeAsync()
+        public async Task InitializeAsync()
         {
+            await _userInterfaceService.ShowBusyIndicatorAsync();
             _timer = new DispatcherTimer();
             _timer.Tick += Timer_Tick;
             _timer.Start();
-            return Task.FromResult(0);
         }
 
         public Task UnInitializeAsync()
@@ -225,6 +225,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                     }   // for each process
                 }
                 _timer.Start();
+                await _userInterfaceService.HideBusyIndicatorAsync();
             }
             catch (Exception ex)
             {

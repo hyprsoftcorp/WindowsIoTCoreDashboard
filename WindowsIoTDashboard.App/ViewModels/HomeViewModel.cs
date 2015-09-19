@@ -74,6 +74,11 @@ namespace WindowsIoTDashboard.App.ViewModels
             set { Set(ref _availableMemory, value); }
         }
 
+        public Visibility ResourcesVisibility
+        {
+            get { return App.IsRunningOnWindowsIoTDevice ? Visibility.Collapsed : Visibility.Visible; }
+        }
+
         #endregion
 
         #region Methods
@@ -82,6 +87,7 @@ namespace WindowsIoTDashboard.App.ViewModels
         {
             try
             {
+                await _userInterfaceService.ShowBusyIndicatorAsync();
                 DeviceInfoModel = await _restService.GetAsync<DeviceInfoModel>(new Uri("api/iot/deviceinformation", UriKind.Relative));
 
                 _timer = new DispatcherTimer();
@@ -117,6 +123,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                 AvailableMemory = (SystemPerfModel.AvailablePages * SystemPerfModel.PageSize) / (float)1048576;
                 InUseMemory = TotalMemory - AvailableMemory;
                 _timer.Start();
+                await _userInterfaceService.HideBusyIndicatorAsync();
             }
             catch (Exception ex)
             {

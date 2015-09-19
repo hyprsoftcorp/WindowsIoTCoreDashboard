@@ -28,8 +28,7 @@ namespace WindowsIoTDashboard.App
             var listBox = (ListBox)sender;
             if (listBox.SelectedIndex == -1) return;
             NavStrip.IsPaneOpen = false;
-            var currentFrame = NavStrip.Content as Frame;
-            currentFrame.Navigate(((NavItem)listBox.SelectedItem).Page);
+            ContentFrame.Navigate(((NavItem)listBox.SelectedItem).Page);
         }
 
         private void NavButton_Click(object sender, RoutedEventArgs e)

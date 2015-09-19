@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <StackPanel x:Name="ProcessPanel">
+    <StackPanel x:Name="ProcessPanel" Width="350">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>

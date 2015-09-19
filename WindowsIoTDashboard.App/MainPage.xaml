@@ -94,7 +94,19 @@
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
-            <Frame />
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Assets/background.jpg" Stretch="UniformToFill" />
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ProgressBar Visibility="{Binding BusyIndicatorVisibility}" IsIndeterminate="True" Margin="0,5,0,0" />
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <Frame x:Name="ContentFrame" Margin="24,0" />
+                </ScrollViewer>
+            </Grid>
         </SplitView.Content>
     </SplitView>
 </local:BasePage>

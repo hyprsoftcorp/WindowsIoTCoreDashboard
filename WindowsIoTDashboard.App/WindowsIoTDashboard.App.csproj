@@ -95,7 +95,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="LICENSE" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +162,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="README.md" />
     <None Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="WindowsIoTDashboard.App_TemporaryKey.pfx" />
   </ItemGroup>

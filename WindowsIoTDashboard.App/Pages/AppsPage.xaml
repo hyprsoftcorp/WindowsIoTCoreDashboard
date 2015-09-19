@@ -7,30 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" DataContext="{Binding Apps, Source={StaticResource Locator}}">
 
-    <ScrollViewer Style="{StaticResource PageStyle}">
-        <StackPanel>
-            <Grid>
-                <TextBlock Text="Applications" Style="{ThemeResource HeaderTextBlockStyle}" />
-                <Button Style="{StaticResource RefreshButtonStyle}" Command="{Binding RefreshCommand}">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
-                </Button>
-            </Grid>
-            <TextBlock Text="Installed" Style="{ThemeResource FormTitleTextBlockStyle}" />
-            <ListView ItemsSource="{Binding InstalledModel.InstalledPackages}" SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:AppControl />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <TextBlock Text="Running" Style="{ThemeResource FormTitleTextBlockStyle}" />
-            <ListView ItemsSource="{Binding RunningModel.InstalledPackages}" SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:AppControl />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
-    </ScrollViewer>
+    <StackPanel Style="{StaticResource PageStyle}">
+        <Grid>
+            <TextBlock Text="Applications" Style="{ThemeResource HeaderTextBlockStyle}" />
+            <Button Style="{StaticResource RefreshButtonStyle}" Command="{Binding RefreshCommand}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
+            </Button>
+        </Grid>
+        <TextBlock Text="Installed" Style="{ThemeResource FormTitleTextBlockStyle}" />
+        <ListView ItemsSource="{Binding InstalledModel.InstalledPackages}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:AppControl />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock Text="Running" Style="{ThemeResource FormTitleTextBlockStyle}" />
+        <ListView ItemsSource="{Binding RunningModel.InstalledPackages}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:AppControl />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
 </local:BasePage>

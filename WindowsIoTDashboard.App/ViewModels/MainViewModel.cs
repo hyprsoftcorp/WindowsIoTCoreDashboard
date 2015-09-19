@@ -30,6 +30,8 @@ namespace WindowsIoTDashboard.App.ViewModels
             _userInterfaceService = userInterfaceService;
 
             Messenger.Default.Register<Exception>(this, UserInterfaceService.Commands.ShowFeedback, e => ShowFeedback(e));
+            Messenger.Default.Register<string>(this, UserInterfaceService.Commands.ShowBusyIndicator, m => BusyIndicatorVisibility = Visibility.Visible);
+            Messenger.Default.Register<string>(this, UserInterfaceService.Commands.HideBusyIndicator, m => BusyIndicatorVisibility = Visibility.Collapsed);
         }
 
         #endregion
@@ -56,6 +58,13 @@ namespace WindowsIoTDashboard.App.ViewModels
             set { Set(ref _feedbackButtonVisibility, value); }
         }
 
+        private Visibility _busyIndicatorVisibility = Visibility.Collapsed;
+        public Visibility BusyIndicatorVisibility
+        {
+            get { return _busyIndicatorVisibility; }
+            set { Set(ref _busyIndicatorVisibility, value); }
+        }
+
         private RelayCommand _rebootCommand;
         public RelayCommand RebootCommand
         {
@@ -80,7 +89,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         new UICommand("No, forget it")
                     };
                     await _userInterfaceService.ShowDialogAsync("Reboot Confirmation", "Are you sure you want to reboot your Windows IoT device?", commands, 1);
-                }));
+                }, () => !App.IsRunningOnWindowsIoTDevice));
             }
         }
 
@@ -108,7 +117,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         new UICommand("No, not yet")
                     };
                     await _userInterfaceService.ShowDialogAsync("Shutdown Confirmation", "Are you sure you want to shutdown your Windows IoT device?", commands, 1);
-                }));
+                }, () => !App.IsRunningOnWindowsIoTDevice));
             }
         }
 
@@ -157,7 +166,7 @@ namespace WindowsIoTDashboard.App.ViewModels
             return Task.FromResult(0);
         }
 
-        public void ShowFeedback(Exception ex)
+        public async void ShowFeedback(Exception ex)
         {
             if (ex is HttpRequestException)
                 FeedbackText = String.Format("We are unable to connect to the Windows IoT core device named '{0}'.  Please ensure your device connection settings are correct and that you have network connectivity.", _settingsService.DeviceName);
@@ -167,6 +176,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                 FeedbackText = String.Format("Uh oh it looks like something bad has happened.  This is all we know: {0} {1}", ex.Message, ex.InnerException == null ? String.Empty : ex.InnerException.Message).Replace("\n", " ").Replace("\r", " ");
             }
             FeedbackButtonVisibility = String.IsNullOrEmpty(FeedbackText) ? Visibility.Collapsed : Visibility.Visible;
+            await _userInterfaceService.HideBusyIndicatorAsync();
         }
 
         #endregion

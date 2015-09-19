@@ -7,22 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" DataContext="{Binding Processes, Source={StaticResource Locator}}">
 
-    <ScrollViewer Style="{StaticResource PageStyle}">
-        <StackPanel>
-            <Grid>
-                <TextBlock Text="Processes" Style="{ThemeResource HeaderTextBlockStyle}" />
-                <Button Style="{StaticResource RefreshButtonStyle}" Command="{Binding RefreshCommand}">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
-                </Button>
-            </Grid>
-            <TextBlock Grid.Row="1" Text="Running Processes" Style="{ThemeResource FormTitleTextBlockStyle}" />
-            <GridView Grid.Row="2" ItemsSource="{Binding ProcessesModel}" SelectionMode="None">
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <local:ProcessControl />
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </StackPanel>
-    </ScrollViewer>
+    <StackPanel Style="{StaticResource PageStyle}">
+        <Grid>
+            <TextBlock Text="Processes" Style="{ThemeResource HeaderTextBlockStyle}" />
+            <Button Style="{StaticResource RefreshButtonStyle}" Command="{Binding RefreshCommand}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
+            </Button>
+        </Grid>
+        <TextBlock Grid.Row="1" Text="Running Processes" Style="{ThemeResource FormTitleTextBlockStyle}" />
+        <GridView Grid.Row="2" ItemsSource="{Binding ProcessesModel}" SelectionMode="None">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <local:ProcessControl />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </StackPanel>
 </local:BasePage>

@@ -53,10 +53,12 @@ namespace WindowsIoTDashboard.App.ViewModels
         {
             try
             {
+                await _userInterfaceService.ShowBusyIndicatorAsync();
                 Model = await _restService.GetAsync<DevicesModel>(new Uri("api/devicemanager/devices", UriKind.Relative));
                 var sortedModel = new DevicesModel();
                 BuildHierarchy(Model, sortedModel, Model.DeviceList.Where(d => d.ParentID == null).Select(d => d.ID).FirstOrDefault(), 0);
                 Model = sortedModel;
+                await _userInterfaceService.HideBusyIndicatorAsync();
             }
             catch (Exception ex)
             {
