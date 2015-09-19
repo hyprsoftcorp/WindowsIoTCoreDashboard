@@ -90,6 +90,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="LICENSE" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="README.md" />
     <None Include="WindowsIoTDashboard.App_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
