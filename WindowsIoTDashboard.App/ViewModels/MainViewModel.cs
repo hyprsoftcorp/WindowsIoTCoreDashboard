@@ -56,13 +56,6 @@ namespace WindowsIoTDashboard.App.ViewModels
             set { Set(ref _feedbackButtonVisibility, value); }
         }
 
-        private bool _commandBarIsOpen;
-            public bool CommandBarIsOpen
-        {
-            get { return _commandBarIsOpen; }
-            set { Set(ref _commandBarIsOpen, value); }
-        }
-
         private RelayCommand _rebootCommand;
         public RelayCommand RebootCommand
         {
@@ -76,6 +69,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         {
                             try
                             {
+                                _restService.TelemetryClient.TrackEvent("RebootCommand");
                                 await _restService.PostAsync(new Uri("api/control/reboot", UriKind.Relative), null);
                             }
                             catch (Exception ex)
@@ -103,6 +97,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         {
                             try
                             {
+                                _restService.TelemetryClient.TrackEvent("ShutdownCommand");
                                 await _restService.PostAsync(new Uri("api/control/shutdown", UriKind.Relative), null);
                             }
                             catch (Exception ex)
@@ -167,9 +162,11 @@ namespace WindowsIoTDashboard.App.ViewModels
             if (ex is HttpRequestException)
                 FeedbackText = String.Format("We are unable to connect to the Windows IoT core device named '{0}'.  Please ensure your device connection settings are correct and that you have network connectivity.", _settingsService.DeviceName);
             else
+            {
+                _restService.TelemetryClient.TrackException(ex);
                 FeedbackText = String.Format("Uh oh it looks like something bad has happened.  This is all we know: {0} {1}", ex.Message, ex.InnerException == null ? String.Empty : ex.InnerException.Message).Replace("\n", " ").Replace("\r", " ");
+            }
             FeedbackButtonVisibility = String.IsNullOrEmpty(FeedbackText) ? Visibility.Collapsed : Visibility.Visible;
-            CommandBarIsOpen = true;
         }
 
         #endregion

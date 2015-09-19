@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -10,6 +11,7 @@ namespace WindowsIoTDashboard.App.Services
 {
     public interface IRestService
     {
+        TelemetryClient TelemetryClient { get; }
         Task<T> GetAsync<T>(Uri uri) where T : class;
         Task PostAsync(Uri uri, HttpContent content);
     }
@@ -21,7 +23,10 @@ namespace WindowsIoTDashboard.App.Services
         public RestService(ISettingsService settingsService)
         {
             _settingsService = settingsService;
+            TelemetryClient = new TelemetryClient();
         }
+
+        public TelemetryClient TelemetryClient { get; private set; }
 
         public async Task<T> GetAsync<T>(Uri uri) where T : class
         {

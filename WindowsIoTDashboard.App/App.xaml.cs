@@ -1,11 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.ApplicationInsights;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using WindowsIoTDashboard.App.Services;
 
 namespace WindowsIoTDashboard.App
 {
@@ -20,6 +20,7 @@ namespace WindowsIoTDashboard.App
         /// </summary>
         public App()
         {
+            WindowsAppInitializer.InitializeAsync();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
