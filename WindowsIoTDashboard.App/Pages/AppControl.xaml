@@ -25,7 +25,7 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="320" />
+                        <AdaptiveTrigger MinWindowWidth="320" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="PackageFullNameTextBlock.Visibility" Value="Collapsed" />
@@ -33,7 +33,7 @@
                 </VisualState>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="720" />
+                        <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="PackageFullNameTextBlock.Visibility" Value="Visible" />
