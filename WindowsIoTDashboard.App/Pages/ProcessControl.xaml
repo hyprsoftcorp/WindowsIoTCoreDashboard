@@ -17,7 +17,7 @@
                         <AdaptiveTrigger MinWindowWidth="320"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ProcessPanel.Width" Value="275" />
+                        <Setter Target="ProcessPanel.Width" Value="265" />
                         <Setter Target="PrivateBytesTextBlock.Text" Value="PRIVATE&#10;BYTES" />
                         <Setter Target="WorkingSetTextBlock.Text" Value="WORKING&#10;SET" />
                         <Setter Target="VirtualSizeTeztBlock.Text" Value="VIRTUAL&#10;SIZE" />
@@ -44,13 +44,17 @@
         <Border Background="#15ffffff">
             <Grid>
                 <StackPanel Padding="30,20">
-                    <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;" Margin="0,0,10,0" />
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" TextTrimming="CharacterEllipsis">
+                        <TextBlock Grid.Column="1" Style="{StaticResource SubtitleTextBlockStyle}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding ImageName}" /> (<Run Text="{Binding ProcessId}" />)
                         </TextBlock>
-                    </StackPanel>
-                    <TextBlock Text="{Binding UserName}" />
+                    </Grid>
+                    <TextBlock Text="{Binding UserName}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

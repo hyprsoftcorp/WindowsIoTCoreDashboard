@@ -58,14 +58,15 @@
             </Grid>
             <StackPanel Visibility="{Binding ResourcesVisibility}">
                 <TextBlock Text="Resources" Style="{ThemeResource FormTitleTextBlockStyle}" />
-                <HyperlinkButton NavigateUri="https://dev.windows.com/en-us/iot">Windows 10 IoT Development Center</HyperlinkButton>
+                <HyperlinkButton NavigateUri="https://dev.windows.com/en-us/iot">Windows 10 IoT Core Development Center</HyperlinkButton>
                 <HyperlinkButton NavigateUri="https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm">Supported Peripheral Interfaces and Devices</HyperlinkButton>
                 <HyperlinkButton NavigateUri="http://ms-iot.github.io/content/en-US/GetStarted.htm">Getting Started (device selection, PC setup, device setup, development)</HyperlinkButton>
                 <HyperlinkButton NavigateUri="https://www.raspberrypi.org/forums/viewtopic.php?t=5851">HDMI Output Configuration</HyperlinkButton>
+                <HyperlinkButton NavigateUri="https://www.hackster.io/windowsiot/powershell-to-connect-to-a-machine-running-windows-10">Connecting with Powershell</HyperlinkButton>
                 <HyperlinkButton NavigateUri="http://ms-iot.github.io/content/en-US/win10/tools/CommandLineUtils.htm">Windows 10 IoT Core Command Line Utilities</HyperlinkButton>
-                <HyperlinkButton NavigateUri="https://ms-iot.github.io/content/en-US/win10/StartCoding.htm">Windows 10 IoT Samples Documentation and Source Code</HyperlinkButton>
-                <HyperlinkButton NavigateUri="https://github.com/hyprsoftcorp/">Source code for this app on GitHub</HyperlinkButton>
-                <HyperlinkButton NavigateUri=""></HyperlinkButton>
+                <HyperlinkButton NavigateUri="https://ms-iot.github.io/content/en-US/win10/StartCoding.htm">Windows 10 IoT Core Samples Documentation and Source Code</HyperlinkButton>
+                <HyperlinkButton NavigateUri="http://stackoverflow.com/questions/31026020/raspberry-pi-2-windows-iot-remote-debugger-does-not-appear-to-be-running">Starting the Remote Debugger</HyperlinkButton>
+                <HyperlinkButton NavigateUri="https://github.com/hyprsoftcorp/WindowsIoTCoreDashboard">Source code for this app on GitHub</HyperlinkButton>
             </StackPanel>
         </StackPanel>
     </StackPanel>

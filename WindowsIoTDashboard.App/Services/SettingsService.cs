@@ -18,12 +18,12 @@ namespace WindowsIoTDashboard.App.Services
         {
             get
             {
-                return Windows.Storage.ApplicationData.Current.LocalSettings.Values["DeviceName"] == null ?
-                    "minwinpc" : Windows.Storage.ApplicationData.Current.LocalSettings.Values["DeviceName"].ToString();
+                return Windows.Storage.ApplicationData.Current.RoamingSettings.Values["DeviceName"] == null ?
+                    "minwinpc" : Windows.Storage.ApplicationData.Current.RoamingSettings.Values["DeviceName"].ToString();
             }
             set
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["DeviceName"] = value;
+                Windows.Storage.ApplicationData.Current.RoamingSettings.Values["DeviceName"] = value;
             }
         }
 
@@ -31,12 +31,12 @@ namespace WindowsIoTDashboard.App.Services
         {
             get
             {
-                return Windows.Storage.ApplicationData.Current.LocalSettings.Values["Username"] == null ?
-                    "administrator" : Windows.Storage.ApplicationData.Current.LocalSettings.Values["Username"].ToString();
+                return Windows.Storage.ApplicationData.Current.RoamingSettings.Values["Username"] == null ?
+                    "administrator" : Windows.Storage.ApplicationData.Current.RoamingSettings.Values["Username"].ToString();
             }
             set
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Username"] = value;
+                Windows.Storage.ApplicationData.Current.RoamingSettings.Values["Username"] = value;
             }
         }
 
@@ -44,12 +44,12 @@ namespace WindowsIoTDashboard.App.Services
         {
             get
             {
-                return Windows.Storage.ApplicationData.Current.LocalSettings.Values["Password"] == null ?
-                    "p@ssw0rd" : Windows.Storage.ApplicationData.Current.LocalSettings.Values["Password"].ToString();
+                return Windows.Storage.ApplicationData.Current.RoamingSettings.Values["Password"] == null ?
+                    "p@ssw0rd" : Windows.Storage.ApplicationData.Current.RoamingSettings.Values["Password"].ToString();
             }
             set
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Password"] = value;
+                Windows.Storage.ApplicationData.Current.RoamingSettings.Values["Password"] = value;
             }
         }
 
