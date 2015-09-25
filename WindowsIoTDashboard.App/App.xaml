@@ -9,6 +9,7 @@
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:WindowsIoTDashboard.App.ViewModels" />
         <local:StringFormatConverter x:Key="StringFormatConverter" />
+        <local:BytesDisplayConverter x:Key="BytesDisplayConverter" />
         <local:LevelToMarginConverter x:Key="LevelToMarginConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <SolidColorBrush x:Key="PageBackgroundBrush" Color="#181b24" />

@@ -63,7 +63,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="CPU" />
                         <ProgressBar Grid.Column="1" Value="{Binding CPUUsage}" Margin="10,0" />
-                        <TextBlock Grid.Column="2" Text="{Binding CPUUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0#}%'}" />
+                        <TextBlock Grid.Column="2" Text="{Binding CPUUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0}%'}" />
                     </Grid>
                 </StackPanel>
                 <Button Style="{StaticResource TerminateButtonStyle}" Command="{Binding TerminateCommand}" CommandParameter="{Binding ProcessId}" Visibility="{Binding TerminateButtonVisibility}">
@@ -86,9 +86,9 @@
                 <TextBlock x:Name="WorkingSetTextBlock" Grid.Column="1" Text="WORKING SET" Style="{StaticResource CaptionTextBlockStyle}" TextAlignment="Center"/>
                 <TextBlock x:Name="VirtualSizeTeztBlock" Grid.Column="2" Text="VIRTUAL SIZE" Style="{StaticResource CaptionTextBlockStyle}" TextAlignment="Center"/>
 
-                <TextBlock Grid.Row="1" Text="{Binding PrivateWorkingSet, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" TextAlignment="Center" />
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding WorkingSetSize, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" TextAlignment="Center"/>
-                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding VirtualSize, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" TextAlignment="Center"/>
+                <TextBlock Grid.Row="1" Text="{Binding PrivateWorkingSet, Converter={StaticResource BytesDisplayConverter}}" TextAlignment="Center" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding WorkingSetSize, Converter={StaticResource BytesDisplayConverter}}" TextAlignment="Center"/>
+                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding VirtualSize, Converter={StaticResource BytesDisplayConverter}}" TextAlignment="Center"/>
             </Grid>
         </Border>
     </StackPanel>

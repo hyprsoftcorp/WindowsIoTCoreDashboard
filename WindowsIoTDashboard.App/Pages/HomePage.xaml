@@ -34,8 +34,10 @@
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding DeviceInfoModel.DeviceName}" Style="{StaticResource FormTextBlockStyle}"/>
                 <TextBlock Grid.Column="1" Grid.Row="2"  Text="{Binding DeviceInfoModel.OSVersion}" Style="{StaticResource FormTextBlockStyle}"/>
             </Grid>
+          
             <TextBlock Text="{Binding SystemPerfModel.CpuLoad, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}CPU {0:0}%'}"  Style="{ThemeResource FormTitleTextBlockStyle}"/>
             <ProgressBar Value="{Binding SystemPerfModel.CpuLoad}" />
+           
             <TextBlock Text="Memory" Style="{ThemeResource FormTitleTextBlockStyle}" />
             <ProgressBar Value="{Binding InUseMemory}" Minimum="0" Maximum="{Binding TotalMemory}" />
             <Grid>
@@ -52,10 +54,47 @@
                 <TextBlock Grid.Column="1" Text="AVAILABLE" Style="{StaticResource CaptionTextBlockStyle}" />
                 <TextBlock Grid.Column="2" Text="TOTAL" Style="{StaticResource CaptionTextBlockStyle}" />
 
-                <TextBlock Grid.Row="1" Text="{Binding InUseMemory, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" />
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AvailableMemory, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" />
-                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding TotalMemory, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.0} MB'}" />
+                <TextBlock Grid.Row="1" Text="{Binding InUseMemory, Converter={StaticResource BytesDisplayConverter}}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AvailableMemory, Converter={StaticResource BytesDisplayConverter}}" />
+                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding TotalMemory, Converter={StaticResource BytesDisplayConverter}}" />
             </Grid>
+
+            <TextBlock Text="Network Receive" Style="{ThemeResource FormTitleTextBlockStyle}" />
+            <ProgressBar Value="{Binding NetworkInCurrent}" Minimum="0" Maximum="{Binding NetworkInMaximum}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="CURRENT" Style="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock Grid.Column="1" Text="MAXIMUM" Style="{StaticResource CaptionTextBlockStyle}" />
+
+                <TextBlock Grid.Row="1" Text="{Binding NetworkInCurrent, Converter={StaticResource BytesDisplayConverter}}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NetworkInMaximum, Converter={StaticResource BytesDisplayConverter}}" />
+            </Grid>
+
+            <TextBlock Text="Network Send" Style="{ThemeResource FormTitleTextBlockStyle}" />
+            <ProgressBar Value="{Binding NetworkOutCurrent}" Minimum="0" Maximum="{Binding NetworkOutMaximum}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="CURRENT" Style="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock Grid.Column="1" Text="MAXIMUM" Style="{StaticResource CaptionTextBlockStyle}" />
+
+                <TextBlock Grid.Row="1" Text="{Binding NetworkOutCurrent, Converter={StaticResource BytesDisplayConverter}}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NetworkOutMaximum, Converter={StaticResource BytesDisplayConverter}}" />
+            </Grid>
+
             <StackPanel Visibility="{Binding ResourcesVisibility}">
                 <TextBlock Text="Resources" Style="{ThemeResource FormTitleTextBlockStyle}" />
                 <HyperlinkButton NavigateUri="https://dev.windows.com/en-us/iot">Windows 10 IoT Core Development Center</HyperlinkButton>

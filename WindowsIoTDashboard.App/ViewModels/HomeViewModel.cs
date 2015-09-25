@@ -53,25 +53,53 @@ namespace WindowsIoTDashboard.App.ViewModels
             }
         }
 
-        private float _totalMemory;
-        public float TotalMemory
+        private double _totalMemory;
+        public double TotalMemory
         {
             get { return _totalMemory; }
             set { Set(ref _totalMemory, value); }
         }
 
-        private float _inUseMemory;
-        public float InUseMemory
+        private double _inUseMemory;
+        public double InUseMemory
         {
             get { return _inUseMemory; }
             set { Set(ref _inUseMemory, value); }
         }
 
-        private float _availableMemory;
-        public float AvailableMemory
+        private double _availableMemory;
+        public double AvailableMemory
         {
             get { return _availableMemory; }
             set { Set(ref _availableMemory, value); }
+        }
+
+        private double _networkInCurrent;
+        public double NetworkInCurrent
+        {
+            get { return _networkInCurrent; }
+            set { Set(ref _networkInCurrent, value); }
+        }
+
+        private double _networkInMaximum;
+        public double NetworkInMaximum
+        {
+            get { return _networkInMaximum; }
+            set { Set(ref _networkInMaximum, value); }
+        }
+
+        private double _networkOutCurrent;
+        public double NetworkOutCurrent
+        {
+            get { return _networkOutCurrent; }
+            set { Set(ref _networkOutCurrent, value); }
+        }
+
+        private double _networkOutMaximum;
+        public double NetworkOutMaximum
+        {
+            get { return _networkOutMaximum; }
+            set { Set(ref _networkOutMaximum, value); }
         }
 
         public Visibility ResourcesVisibility
@@ -88,7 +116,7 @@ namespace WindowsIoTDashboard.App.ViewModels
             try
             {
                 await _userInterfaceService.ShowBusyIndicatorAsync();
-                DeviceInfoModel = await _restService.GetAsync<DeviceInfoModel>(new Uri("api/iot/deviceinformation", UriKind.Relative));
+                DeviceInfoModel = await _restService.GetAsync<DeviceInfoModel>(new Uri("api/iot/device/information", UriKind.Relative));
 
                 _timer = new DispatcherTimer();
                 _timer.Tick += Timer_Tick;
@@ -118,10 +146,20 @@ namespace WindowsIoTDashboard.App.ViewModels
             {
                 _timer.Stop();
                 _timer.Interval = TimeSpan.FromSeconds(1);
+
                 SystemPerfModel = await _restService.GetAsync<SystemPerfModel>(new Uri("api/resourcemanager/systemperf", UriKind.Relative));
-                TotalMemory = (SystemPerfModel.TotalPages * SystemPerfModel.PageSize) / (float)1048576;
-                AvailableMemory = (SystemPerfModel.AvailablePages * SystemPerfModel.PageSize) / (float)1048576;
+                TotalMemory = SystemPerfModel.TotalPages * SystemPerfModel.PageSize;
+                AvailableMemory = SystemPerfModel.AvailablePages * SystemPerfModel.PageSize;
                 InUseMemory = TotalMemory - AvailableMemory;
+
+                var networkIn = SystemPerfModel.NetworkingData.NetworkInBytes;
+                NetworkInMaximum = Math.Max(NetworkInMaximum, networkIn);
+                NetworkInCurrent = networkIn;
+
+                var networkOut = SystemPerfModel.NetworkingData.NetworkOutBytes;
+                NetworkOutMaximum = Math.Max(NetworkOutMaximum, networkOut);
+                NetworkOutCurrent = networkOut;
+
                 _timer.Start();
                 await _userInterfaceService.HideBusyIndicatorAsync();
             }

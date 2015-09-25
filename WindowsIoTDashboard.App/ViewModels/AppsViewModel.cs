@@ -61,7 +61,7 @@ namespace WindowsIoTDashboard.App.ViewModels
             try
             {
                 await _userInterfaceService.ShowBusyIndicatorAsync();
-                InstalledModel = await _restService.GetAsync<AppsModel>(new Uri("api/appx/installed", UriKind.Relative));
+                InstalledModel = await _restService.GetAsync<AppsModel>(new Uri("api/appx/packagemanager/packages", UriKind.Relative));
                 var processesModel = await _restService.GetAsync<ProcessesModel>(new Uri("api/resourcemanager/processes", UriKind.Relative));
                 RunningModel = new AppsModel();
                 foreach (var process in processesModel.Processes)

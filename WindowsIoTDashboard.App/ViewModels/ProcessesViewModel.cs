@@ -22,8 +22,8 @@ namespace WindowsIoTDashboard.App.ViewModels
 
             public ProcessesViewModel Parent { get; private set; }
 
-            private float _cpuUsage;
-            public float CPUUsage
+            private double _cpuUsage;
+            public double CPUUsage
             {
                 get { return _cpuUsage; }
                 set { Set(ref _cpuUsage, value > 100 ? 100 : value); }
@@ -36,11 +36,11 @@ namespace WindowsIoTDashboard.App.ViewModels
                 set { Set(ref _imagename, value); }
             }
 
-            private float _privateWorkingSet;
-            public float PrivateWorkingSet
+            private double _privateWorkingSet;
+            public double PrivateWorkingSet
             {
                 get { return _privateWorkingSet; }
-                set { Set(ref _privateWorkingSet, value / 1048576); }
+                set { Set(ref _privateWorkingSet, value); }
             }
 
             private int _processId;
@@ -57,18 +57,18 @@ namespace WindowsIoTDashboard.App.ViewModels
                 set { Set(ref _userName, value); }
             }
 
-            private float _virtualSize;
-            public float VirtualSize
+            private double _virtualSize;
+            public double VirtualSize
             {
                 get { return _virtualSize; }
-                set { Set(ref _virtualSize, value / 1048576); }
+                set { Set(ref _virtualSize, value); }
             }
 
-            private float _workingSetSize;
-            public float WorkingSetSize
+            private double _workingSetSize;
+            public double WorkingSetSize
             {
                 get { return _workingSetSize; }
-                set { Set(ref _workingSetSize, value / 1048576); }
+                set { Set(ref _workingSetSize, value); }
             }
 
             public Visibility TerminateButtonVisibility

@@ -168,7 +168,7 @@ namespace WindowsIoTDashboard.App.ViewModels
 
         public async void ShowFeedback(Exception ex)
         {
-            if (ex is HttpRequestException)
+            if (ex is HttpRequestException && ex.InnerException!= null && ex.InnerException.Message.Contains("A connection with the server could not be established"))
                 FeedbackText = String.Format("We are unable to connect to the Windows IoT core device named '{0}'.  Please ensure your device connection settings are correct and that you have network connectivity.", _settingsService.DeviceName);
             else
             {
