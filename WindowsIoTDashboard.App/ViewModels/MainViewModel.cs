@@ -8,6 +8,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net;
+using System.Text;
+using WindowsIoTDashboard.App.Helpers;
 
 namespace WindowsIoTDashboard.App.ViewModels
 {
@@ -79,7 +82,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                             try
                             {
                                 _restService.TelemetryClient.TrackEvent("RebootCommand");
-                                await _restService.PostAsync(new Uri("api/control/reboot", UriKind.Relative), null);
+                                await _restService.PostAsync(new Uri("api/control/reboot", UriKind.Relative));
                             }
                             catch (Exception ex)
                             {
@@ -107,7 +110,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                             try
                             {
                                 _restService.TelemetryClient.TrackEvent("ShutdownCommand");
-                                await _restService.PostAsync(new Uri("api/control/shutdown", UriKind.Relative), null);
+                                await _restService.PostAsync(new Uri("api/control/shutdown", UriKind.Relative));
                             }
                             catch (Exception ex)
                             {
@@ -143,6 +146,39 @@ namespace WindowsIoTDashboard.App.ViewModels
             }
         }
 
+        private RelayCommand _runCommand;
+        public RelayCommand RunCommand
+        {
+            get
+            {
+                return _runCommand ?? (_runCommand = new RelayCommand(async () =>
+                {
+                    try
+                    {
+                        if (!String.IsNullOrEmpty(Settings.RunCommandText))
+                        {
+                            _restService.TelemetryClient.TrackEvent("RunCommand");
+                            await _restService.PostAsync(new Uri(String.Format("api/iot/processmanagement/runcommand?command={0}&runasdefaultaccount={1}",
+                                WebUtility.UrlEncode(Convert.ToBase64String(Encoding.ASCII.GetBytes(_settingsService.RunCommandText))),
+                                WebUtility.UrlEncode(Convert.ToBase64String(Encoding.ASCII.GetBytes(_settingsService.IsRunAsDefaultAccount.ToString().ToLower())))), UriKind.Relative));
+                        }
+                    }
+                    catch (HttpRequestException ex)
+                    {
+                        ShowFeedback(new IotException(String.Format("The '{0}' command is invalid.  Please check the syntax for the command and try again.", _settingsService.RunCommandText), ex));
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowFeedback(ex);
+                    }
+                    finally
+                    {
+                        await _userInterfaceService.HideRunCommandAsync();
+                    }
+                }, () => true));
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -168,12 +204,12 @@ namespace WindowsIoTDashboard.App.ViewModels
 
         public async void ShowFeedback(Exception ex)
         {
-            if (ex is HttpRequestException && ex.InnerException!= null && ex.InnerException.Message.Contains("A connection with the server could not be established"))
-                FeedbackText = String.Format("We are unable to connect to the Windows IoT core device named '{0}'.  Please ensure your device connection settings are correct and that you have network connectivity.", _settingsService.DeviceName);
+            if (ex is IotException)
+                FeedbackText = String.Format("{0} {1}", ex.Message, ex.InnerException == null ? String.Empty : ex.InnerException.Message).Replace("\n", " ").Replace("\r", " ");
             else
             {
                 _restService.TelemetryClient.TrackException(ex);
-                FeedbackText = String.Format("Uh oh it looks like something bad has happened.  This is all we know: {0} {1}", ex.Message, ex.InnerException == null ? String.Empty : ex.InnerException.Message).Replace("\n", " ").Replace("\r", " ");
+                FeedbackText = String.Format("Uh oh it looks like something bad has happened.  Here are the cryptic details: {0} {1}", ex.Message, ex.InnerException == null ? String.Empty : ex.InnerException.Message).Replace("\n", " ").Replace("\r", " ");
             }
             FeedbackButtonVisibility = String.IsNullOrEmpty(FeedbackText) ? Visibility.Collapsed : Visibility.Visible;
             await _userInterfaceService.HideBusyIndicatorAsync();

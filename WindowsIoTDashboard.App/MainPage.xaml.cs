@@ -15,6 +15,7 @@ namespace WindowsIoTDashboard.App
             this.InitializeComponent();
             Messenger.Default.Register<Exception>(this, UserInterfaceService.Commands.HideFeedback, _ => FeedbackFlyout.Hide());
             Messenger.Default.Register<string>(this, UserInterfaceService.Commands.ShowSettings, _ => SettingsFlyout.ShowAt(SettingsButton));
+            Messenger.Default.Register<string>(this, UserInterfaceService.Commands.HideRunCommand, _ => RunFlyout.Hide());
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

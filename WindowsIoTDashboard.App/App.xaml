@@ -52,6 +52,7 @@
         <Style x:Key="RefreshButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Margin" Value="0,15,0,0" />
+            <Setter Property="Padding" Value="10" />
             <Setter Property="ToolTipService.ToolTip" Value="Refresh Data" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />

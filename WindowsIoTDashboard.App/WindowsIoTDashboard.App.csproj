@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\BytesDisplayConverter.cs" />
+    <Compile Include="Helpers\IotException.cs" />
     <Compile Include="Helpers\LevelToMarginConverter.cs" />
     <Compile Include="Helpers\StringFormatConverter.cs" />
     <Compile Include="Models\DevicesModel.cs" />

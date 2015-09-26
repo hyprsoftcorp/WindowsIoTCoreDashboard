@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.System.Profile;
 using Windows.UI.Popups;
 
 namespace WindowsIoTDashboard.App.Services
@@ -15,6 +14,7 @@ namespace WindowsIoTDashboard.App.Services
         Task HideSettingsAsync();
         Task ShowBusyIndicatorAsync();
         Task HideBusyIndicatorAsync();
+        Task HideRunCommandAsync();
         Task<IUICommand> ShowDialogAsync(string title, string message, IEnumerable<UICommand> commands, uint defaultCommandIndex);
     }
 
@@ -28,7 +28,8 @@ namespace WindowsIoTDashboard.App.Services
             HideSettings,
             WifiAdapterSelectionChanged,
             ShowBusyIndicator,
-            HideBusyIndicator
+            HideBusyIndicator,
+            HideRunCommand
         }
 
         public Task ShowFeedbackAsync(Exception ex)
@@ -67,17 +68,24 @@ namespace WindowsIoTDashboard.App.Services
             return Task.FromResult(0);
         }
 
+        public Task HideRunCommandAsync()
+        {
+            Messenger.Default.Send(String.Empty, Commands.HideRunCommand);
+            return Task.FromResult(0);
+        }
+
         public async Task<IUICommand> ShowDialogAsync(string title, string message, IEnumerable<UICommand> commands, uint defaultCommandIndex)
         {
-            var dialog = new MessageDialog(message, title);
             // TODO: This is a known issue on Windows 10 IoT Core.
             if (!App.IsRunningOnWindowsIoTDevice)
             {
+                var dialog = new MessageDialog(message, title);
                 foreach (var command in commands)
                     dialog.Commands.Add(command);
+                dialog.DefaultCommandIndex = defaultCommandIndex;
+                return await dialog.ShowAsync();
             }
-            dialog.DefaultCommandIndex = defaultCommandIndex;
-            return await dialog.ShowAsync();
+            return null;
         }
     }
 }

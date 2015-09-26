@@ -168,7 +168,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         {
                             try
                             {
-                                await _restService.PostAsync(new Uri(String.Format("/api/taskmanager/stop?pid={0}", processId), UriKind.Relative), null);
+                                await _restService.DeleteAsync(new Uri(String.Format("api/taskmanager/process?pid={0}", processId), UriKind.Relative));
                                 ProcessesModel.Remove(process);
                             }
                             catch (Exception ex)

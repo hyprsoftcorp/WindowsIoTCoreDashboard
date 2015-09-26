@@ -10,6 +10,8 @@ namespace WindowsIoTDashboard.App.Services
         string Username { get; set; }
         string Password { get; set; }
         bool IsFirstRun { get; set; }
+        string RunCommandText { get; set; }
+        bool IsRunAsDefaultAccount { get; set; }
     }
 
     public class SettingsService : ISettingsService
@@ -63,6 +65,32 @@ namespace WindowsIoTDashboard.App.Services
             set
             {
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["IsFirstRun"] = value;
+            }
+        }
+
+        public string RunCommandText
+        {
+            get
+            {
+                return Windows.Storage.ApplicationData.Current.RoamingSettings.Values["RunCommandText"] == null ?
+                    String.Empty : Windows.Storage.ApplicationData.Current.RoamingSettings.Values["RunCommandText"].ToString();
+            }
+            set
+            {
+                Windows.Storage.ApplicationData.Current.RoamingSettings.Values["RunCommandText"] = value;
+            }
+        }
+
+        public bool IsRunAsDefaultAccount
+        {
+            get
+            {
+                return Windows.Storage.ApplicationData.Current.RoamingSettings.Values["IsRunAsDefaultAccount"] == null ?
+                    true : bool.Parse(Windows.Storage.ApplicationData.Current.RoamingSettings.Values["IsRunAsDefaultAccount"].ToString());
+            }
+            set
+            {
+                Windows.Storage.ApplicationData.Current.RoamingSettings.Values["IsRunAsDefaultAccount"] = value;
             }
         }
 

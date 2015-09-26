@@ -16,19 +16,14 @@
                 </AppBarButton.Icon>
                 <AppBarButton.Flyout>
                     <Flyout x:Name="FeedbackFlyout">
-                        <Grid MaxWidth="400">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Feedback" Style="{StaticResource FormTitleTextBlockStyle}" />
-                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{Binding FeedbackText}" />
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,0,0">
+                        <StackPanel MaxWidth="400">
+                            <TextBlock Text="Feedback" Style="{StaticResource TitleTextBlockStyle}" />
+                            <TextBlock TextWrapping="Wrap" Text="{Binding FeedbackText}" />
+                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                 <Button Command="{Binding DismissFeedbackCommand}" Margin="0,0,10,0">Dismiss</Button>
                                 <Button Command="{Binding ShowSettingsCommand}">Open Settings</Button>
                             </StackPanel>
-                        </Grid>
+                        </StackPanel>
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -39,7 +34,7 @@
                 <AppBarButton.Flyout>
                     <Flyout x:Name="SettingsFlyout">
                         <StackPanel>
-                            <TextBlock Text="Device Settings" Style="{ThemeResource FormTitleTextBlockStyle}" />
+                            <TextBlock Text="Device Settings" Style="{ThemeResource TitleTextBlockStyle}" />
                             <TextBlock Text="Device Name" Style="{ThemeResource FormBaseTextBlockStyle}" />
                             <TextBox Text="{Binding Settings.DeviceName, Mode=TwoWay}" Style="{StaticResource FormTextBoxStyle}" />
 
@@ -54,6 +49,23 @@
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+            <AppBarButton x:Name="RunButton" Label="Run" ToolTipService.ToolTip="Run">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="RunFlyout">
+                        <StackPanel MinWidth="300">
+                            <TextBlock Text="Run a Command" Style="{ThemeResource TitleTextBlockStyle}" />
+                            <TextBlock Text="Command" Style="{ThemeResource FormBaseTextBlockStyle}" />
+                            <TextBox Text="{Binding Settings.RunCommandText, Mode=TwoWay}" Style="{StaticResource FormTextBoxStyle}" />
+                            <CheckBox IsChecked="{Binding Settings.IsRunAsDefaultAccount, Mode=TwoWay}">Run as DefaultAccount</CheckBox>
+                            <Button Command="{Binding RunCommand}" Margin="0,20,0,0">Run</Button>
+                        </StackPanel>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
             <AppBarButton Label="Shutdown" ToolTipService.ToolTip="Shutdown" Command="{Binding ShutdownCommand}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E8;" />
