@@ -81,7 +81,7 @@ namespace WindowsIoTDashboard.App.ViewModels
             {
                 get
                 {
-                    return _terminateCommand ?? (_terminateCommand = new RelayCommand<int>(async processId => await Parent.TerminateProcesAsync(processId), processId => processId > 0 && !App.IsRunningOnWindowsIoTDevice));
+                    return _terminateCommand ?? (_terminateCommand = new RelayCommand<int>(async processId => await Parent.TerminateProcesAsync(processId), processId => processId > 0));
                 }
             }
 
@@ -184,10 +184,17 @@ namespace WindowsIoTDashboard.App.ViewModels
 
         public async Task InitializeAsync()
         {
-            await _userInterfaceService.ShowBusyIndicatorAsync();
-            _timer = new DispatcherTimer();
-            _timer.Tick += Timer_Tick;
-            _timer.Start();
+            try
+            {
+                await _userInterfaceService.ShowBusyIndicatorAsync();
+                _timer = new DispatcherTimer();
+                _timer.Tick += Timer_Tick;
+                _timer.Start();
+            }
+            catch (Exception ex)
+            {
+                await _userInterfaceService.ShowFeedbackAsync(ex);
+            }
         }
 
         public Task UnInitializeAsync()

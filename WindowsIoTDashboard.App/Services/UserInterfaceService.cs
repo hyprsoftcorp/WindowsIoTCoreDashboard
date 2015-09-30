@@ -15,7 +15,7 @@ namespace WindowsIoTDashboard.App.Services
         Task ShowBusyIndicatorAsync();
         Task HideBusyIndicatorAsync();
         Task HideRunCommandAsync();
-        Task<IUICommand> ShowDialogAsync(string title, string message, IEnumerable<UICommand> commands, uint defaultCommandIndex);
+        Task<IUICommand> ShowDialogAsync(string title, string message, IList<UICommand> commands, uint defaultCommandIndex);
     }
 
     public class UserInterfaceService : IUserInterfaceService
@@ -74,9 +74,22 @@ namespace WindowsIoTDashboard.App.Services
             return Task.FromResult(0);
         }
 
-        public async Task<IUICommand> ShowDialogAsync(string title, string message, IEnumerable<UICommand> commands, uint defaultCommandIndex)
+        public async Task<IUICommand> ShowDialogAsync(string title, string message, IList<UICommand> commands, uint defaultCommandIndex)
         {
-            // TODO: This is a known issue on Windows 10 IoT Core.
+            if (String.IsNullOrEmpty(title))
+                throw new ArgumentNullException("Title cannot be null or empty.");
+
+            if (String.IsNullOrEmpty(message))
+                throw new ArgumentNullException("Message cannot be null or empty.");
+
+            if (commands == null)
+                throw new ArgumentNullException("Commands cannot be null.");
+
+            if (commands.Count <= 0)
+                throw new ArgumentOutOfRangeException("Commands must contain at least one UICommand.");
+
+            // Windows.UI.Popups.MessageDialog isn't currently supported on Windows 10 IoT Core so let's skip showing our confirmaion message
+            // and just automatically invoke our first UICommand.
             if (!App.IsRunningOnWindowsIoTDevice)
             {
                 var dialog = new MessageDialog(message, title);
@@ -85,7 +98,11 @@ namespace WindowsIoTDashboard.App.Services
                 dialog.DefaultCommandIndex = defaultCommandIndex;
                 return await dialog.ShowAsync();
             }
-            return null;
+            else
+            {
+                commands[0].Invoked(commands[0]);
+                return commands[0];
+            }
         }
     }
 }

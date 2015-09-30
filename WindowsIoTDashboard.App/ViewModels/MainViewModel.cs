@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net;
 using System.Text;
 using WindowsIoTDashboard.App.Helpers;
+using Windows.UI.ViewManagement;
 
 namespace WindowsIoTDashboard.App.ViewModels
 {
@@ -92,7 +93,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         new UICommand("No, forget it")
                     };
                     await _userInterfaceService.ShowDialogAsync("Reboot Confirmation", "Are you sure you want to reboot your Windows IoT device?", commands, 1);
-                }, () => !App.IsRunningOnWindowsIoTDevice));
+                }, () => true));
             }
         }
 
@@ -120,7 +121,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                         new UICommand("No, not yet")
                     };
                     await _userInterfaceService.ShowDialogAsync("Shutdown Confirmation", "Are you sure you want to shutdown your Windows IoT device?", commands, 1);
-                }, () => !App.IsRunningOnWindowsIoTDevice));
+                }, () => true));
             }
         }
 
@@ -179,6 +180,22 @@ namespace WindowsIoTDashboard.App.ViewModels
             }
         }
 
+        private RelayCommand _fullscreenCommand;
+        public RelayCommand FullscreenCommand
+        {
+            get
+            {
+                return _fullscreenCommand ?? (_fullscreenCommand = new RelayCommand(() =>
+                {
+                    _restService.TelemetryClient.TrackEvent("FullscreenCommand");
+                    var view = ApplicationView.GetForCurrentView();
+                    if (view.IsFullScreenMode)
+                        view.ExitFullScreenMode();
+                    else
+                        view.TryEnterFullScreenMode();
+                }, () => !App.IsRunningOnWindowsIoTDevice));
+            }
+        }
         #endregion
 
         #region Methods

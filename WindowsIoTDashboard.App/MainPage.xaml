@@ -49,7 +49,7 @@
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarButton x:Name="RunButton" Label="Run" ToolTipService.ToolTip="Run">
+            <AppBarButton x:Name="RunButton" Label="Run" ToolTipService.ToolTip="Run a Command">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                 </AppBarButton.Icon>
@@ -65,15 +65,19 @@
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-
-            <AppBarButton Label="Shutdown" ToolTipService.ToolTip="Shutdown" Command="{Binding ShutdownCommand}">
+            <AppBarButton Label="Shutdown" ToolTipService.ToolTip="Shutdown Device" Command="{Binding ShutdownCommand}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E8;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Label="Reboot" ToolTipService.ToolTip="Reboot" Command="{Binding RebootCommand}">
+            <AppBarButton Label="Reboot" ToolTipService.ToolTip="Reboot Device" Command="{Binding RebootCommand}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1CD;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Label="Fullscreen" ToolTipService.ToolTip="Toggle Fullscreen" Command="{Binding FullscreenCommand}">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE740;" />
                 </AppBarButton.Icon>
             </AppBarButton>
         </CommandBar>
