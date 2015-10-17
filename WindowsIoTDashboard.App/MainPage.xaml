@@ -89,13 +89,9 @@
                 <StackPanel.DataContext>
                     <helpers:NavMenu/>
                 </StackPanel.DataContext>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="NavButton" Width="48" Height="36" Click="NavButton_Click" Background="Transparent" HorizontalAlignment="Left"
-                            ToolTipService.ToolTip="Navigation Menu Toggle">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
-                    </Button>
-                    <TextBlock Text="Navigation Menu" Margin="16,8,0,0" />
-                </StackPanel>
+                <ToggleButton x:Name="NavButton" Width="48" Height="36" IsChecked="{Binding IsPaneOpen, ElementName=NavStrip, Mode=TwoWay}" Background="Transparent" HorizontalAlignment="Left" ToolTipService.ToolTip="Navigation Menu Toggle">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
+                </ToggleButton>
                 <ListBox x:Name="NavMenu" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="NavMenu_SelectionChanged" 
                     ItemsSource="{Binding MenuItems}" Background="Transparent">
                     <ListBox.ItemTemplate>

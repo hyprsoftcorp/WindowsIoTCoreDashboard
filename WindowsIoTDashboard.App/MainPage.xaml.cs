@@ -21,7 +21,6 @@ namespace WindowsIoTDashboard.App
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             NavMenu.SelectedIndex = 0;
-
         }
 
         private void NavMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -30,11 +29,6 @@ namespace WindowsIoTDashboard.App
             if (listBox.SelectedIndex == -1) return;
             NavStrip.IsPaneOpen = false;
             ContentFrame.Navigate(((NavItem)listBox.SelectedItem).Page);
-        }
-
-        private void NavButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavStrip.IsPaneOpen = !NavStrip.IsPaneOpen;
         }
     }
 }

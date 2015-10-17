@@ -93,7 +93,7 @@ namespace WindowsIoTDashboard.App.Services
 
         private static void SetAuthorizationHeader(HttpClient client, ISettingsService settingsService)
         {
-            var byteArray = Encoding.ASCII.GetBytes(String.Format(@"{0}\{1}:{2}", settingsService.DeviceName, settingsService.Username, settingsService.Password));
+            var byteArray = Encoding.ASCII.GetBytes(String.Format(@"{0}:{1}", settingsService.Username, settingsService.Password));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
         }
 
