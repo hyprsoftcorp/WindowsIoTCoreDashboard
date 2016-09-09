@@ -1,9 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsIoTDashboard.App", "WindowsIoTDashboard.App\WindowsIoTDashboard.App.csproj", "{83889E0F-C917-4BAD-BA4D-FC369B59C7A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C803CBE-722F-4F1B-A840-62FC159F1510}"
+	ProjectSection(SolutionItems) = preProject
+		iot-screenshot-01.jpg = iot-screenshot-01.jpg
+		iot-screenshot-02.jpg = iot-screenshot-02.jpg
+		iot-screenshot-03.jpg = iot-screenshot-03.jpg
+		iot-screenshot-04.jpg = iot-screenshot-04.jpg
+		iot-screenshot-05.jpg = iot-screenshot-05.jpg
+		iot-screenshot-06.jpg = iot-screenshot-06.jpg
+		iot-screenshot-07.jpg = iot-screenshot-07.jpg
+		iot-screenshot-08.jpg = iot-screenshot-08.jpg
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

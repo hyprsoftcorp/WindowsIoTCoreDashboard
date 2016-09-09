@@ -30,3 +30,28 @@ This project has only been tested on a desktop, a Surface 3 Pro, a Raspberry PI 
 * Windows Error Report tracking.
 
 The built-in web based management dashboard can be used directly to accomplish these tasks.
+
+## Screenshots
+### Home Page
+![Home Page](https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-01.jpg "Home Page")
+
+### Device Settings
+![Device Settings](https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-02.jpg "Device Settings")
+
+### Run a Command
+![Run a Command]https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-03.jpg "Run a Command")
+
+### Applications
+![Applications]https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-04.jpg "Applications")
+
+### Devices
+![Devices]https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-05.jpg "Devices")
+
+### IP Configuration
+![IP Configuration](https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-06.jpg "IP Configuration")
+
+### Wi-Fi Configuration
+![Wi-Fi Configuration](https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-07.jpg "Wi-Fi Configuration")
+
+### Processes
+![Processes]https://raw.github.com/hyprsoftcorp/windowsiotcoredashboard/master/iot-screenshot-08.jpg "Processes")
