@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using Microsoft.ApplicationInsights;
+using Microsoft.HockeyApp;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -21,7 +21,7 @@ namespace WindowsIoTDashboard.App
         /// </summary>
         public App()
         {
-            WindowsAppInitializer.InitializeAsync();
+            HockeyClient.Current.Configure(Constants.HockeyAppSecret);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;

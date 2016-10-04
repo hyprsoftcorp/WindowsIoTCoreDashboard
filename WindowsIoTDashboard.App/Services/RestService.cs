@@ -1,4 +1,4 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using Microsoft.HockeyApp;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -11,7 +11,8 @@ namespace WindowsIoTDashboard.App.Services
 {
     public interface IRestService
     {
-        TelemetryClient TelemetryClient { get; }
+        IHockeyClient TelemetryClient { get; }
+
         Task<T> GetAsync<T>(Uri uri) where T : class;
         Task PostAsync(Uri uri);
         Task DeleteAsync(Uri uri);
@@ -36,14 +37,13 @@ namespace WindowsIoTDashboard.App.Services
         public RestService(ISettingsService settingsService)
         {
             _settingsService = settingsService;
-            TelemetryClient = new TelemetryClient();
         }
 
         #endregion
 
-        #region Prperties
+        #region Properties
 
-        public TelemetryClient TelemetryClient { get; private set; }
+        public IHockeyClient TelemetryClient { get { return HockeyClient.Current; } }
 
         #endregion
 
