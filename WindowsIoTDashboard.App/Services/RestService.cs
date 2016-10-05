@@ -4,8 +4,10 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WindowsIoTDashboard.App.Helpers;
+using WindowsIoTDashboard.App.Models;
 
 namespace WindowsIoTDashboard.App.Services
 {
@@ -21,6 +23,9 @@ namespace WindowsIoTDashboard.App.Services
     public class RestService : IRestService
     {
         #region Fields
+
+        private static readonly string SystemPerfModelErrorPrefix = "{\"Reason\" : \"";
+        private static readonly string SystemPerfModelErrorPostfix = "\"}";
 
         private enum RequestType
         {
@@ -62,8 +67,24 @@ namespace WindowsIoTDashboard.App.Services
                     var response = await client.GetAsync(new Uri(new Uri(String.Format("http://{0}:8080/", _settingsService.DeviceName)), uri));
                     if (response.IsSuccessStatusCode)
                     {
-                        var content = await response.Content.ReadAsStringAsync();
-                        return JsonConvert.DeserializeObject<T>(content);
+                        var json = await response.Content.ReadAsStringAsync();
+
+                        // This apparently is a known issue.  See https://github.com/Microsoft/WindowsDevicePortalWrapper/blob/master/WindowsDevicePortalWrapper/WindowsDevicePortalWrapper.Shared/HttpRest/RestGet.cs
+                        if (typeof(T) == typeof(SystemPerfModel))
+                        {
+                            // Recover from an error in which SystemPerformanceInformation is returned with an incorrect prefix, postfix and the message converted into JSON a second time.
+                            if (json.StartsWith(SystemPerfModelErrorPrefix, StringComparison.OrdinalIgnoreCase) && json.EndsWith(SystemPerfModelErrorPostfix, StringComparison.OrdinalIgnoreCase))
+                            {
+                                // Remove the incorrect prefix and postfix from the JSON message.
+                                json = json.Substring(SystemPerfModelErrorPrefix.Length, json.Length - SystemPerfModelErrorPrefix.Length - SystemPerfModelErrorPostfix.Length);
+
+                                // Undo the second JSON conversion.
+                                json = Regex.Replace(json, "\\\\\"", "\"", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+                                json = Regex.Replace(json, "\\\\\\\\", "\\", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+                            }   // contains malformed json
+                        }   // system performance  model
+
+                        return JsonConvert.DeserializeObject<T>(json);
                     }
                     else
                     {
