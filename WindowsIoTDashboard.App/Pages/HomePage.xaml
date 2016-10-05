@@ -34,10 +34,10 @@
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding DeviceInfoModel.DeviceName}" Style="{StaticResource FormTextBlockStyle}"/>
                 <TextBlock Grid.Column="1" Grid.Row="2"  Text="{Binding DeviceInfoModel.OSVersion}" Style="{StaticResource FormTextBlockStyle}"/>
             </Grid>
-          
+
             <TextBlock Text="{Binding SystemPerfModel.CpuLoad, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}CPU {0:0}%'}"  Style="{ThemeResource FormTitleTextBlockStyle}"/>
             <ProgressBar Value="{Binding SystemPerfModel.CpuLoad}" />
-           
+
             <TextBlock Text="Memory" Style="{ThemeResource FormTitleTextBlockStyle}" />
             <ProgressBar Value="{Binding InUseMemory}" Minimum="0" Maximum="{Binding TotalMemory}" />
             <Grid>
@@ -107,6 +107,29 @@
                 <HyperlinkButton NavigateUri="http://stackoverflow.com/questions/31026020/raspberry-pi-2-windows-iot-remote-debugger-does-not-appear-to-be-running">Starting the Remote Debugger</HyperlinkButton>
                 <HyperlinkButton NavigateUri="https://github.com/hyprsoftcorp/WindowsIoTCoreDashboard">Source code for this app on GitHub</HyperlinkButton>
             </StackPanel>
+
+            <TextBlock Text="About" Style="{ThemeResource FormTitleTextBlockStyle}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="App Version:" Style="{StaticResource FormBaseTextBlockStyle}" />
+                <TextBlock Grid.Row="1" Text="Copyright:" Style="{ThemeResource FormBaseTextBlockStyle}" />
+                <TextBlock Grid.Row="2" Text="Website:" Style="{ThemeResource FormBaseTextBlockStyle}" />
+
+                <TextBlock Grid.Column="1" Text="{Binding AppVersion}" Style="{StaticResource FormTextBlockStyle}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AppCopyright}" Style="{StaticResource FormTextBlockStyle}"/>
+                <HyperlinkButton Grid.Column="1" Grid.Row="2" NavigateUri="http://www.hyprsoft.com">
+                    <TextBlock Text="www.hyprsoft.com" Style="{StaticResource FormTextBlockStyle}"/>
+                </HyperlinkButton>
+            </Grid>
+
         </StackPanel>
     </StackPanel>
 </local:BasePage>

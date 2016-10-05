@@ -21,7 +21,7 @@ namespace WindowsIoTDashboard.App
         /// </summary>
         public App()
         {
-            HockeyClient.Current.Configure(Constants.HockeyAppSecret);
+            HockeyClient.Current.Configure(Constants.HockeyAppAppId);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using WindowsIoTDashboard.App.Models;
 using WindowsIoTDashboard.App.Services;
@@ -105,6 +106,16 @@ namespace WindowsIoTDashboard.App.ViewModels
         public Visibility ResourcesVisibility
         {
             get { return App.IsRunningOnWindowsIoTDevice ? Visibility.Collapsed : Visibility.Visible; }
+        }
+
+        public string AppVersion
+        {
+            get { return $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}"; }
+        }
+
+        public string AppCopyright
+        {
+            get { return $"© {DateTime.Now.Year} by Hyprsoft Corporation"; }
         }
 
         #endregion
