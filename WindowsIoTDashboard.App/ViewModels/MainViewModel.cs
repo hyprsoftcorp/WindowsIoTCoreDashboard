@@ -83,7 +83,7 @@ namespace WindowsIoTDashboard.App.ViewModels
                             try
                             {
                                 _restService.TelemetryClient.TrackEvent("RebootCommand");
-                                await _restService.PostAsync(new Uri("api/control/reboot", UriKind.Relative));
+                                await _restService.PostAsync(new Uri("api/control/restart", UriKind.Relative));
                             }
                             catch (Exception ex)
                             {
