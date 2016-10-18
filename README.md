@@ -1,7 +1,7 @@
 # Windows 10 IoT Core Dashboard
 The Windows 10 IoT Core Dashboard is the Universal Windows Platform (UWP) version of the web based management dashboard that's built into Windows 10 IoT Core.
 
-## WindowsDevicePortalWrapper
+## Windows Device Portal Wrapper
 **Microsoft now has an offical Windows device portal wrapper library to call the REST APIs on the Raspberry PI**.  See [this](https://github.com/Microsoft/WindowsDevicePortalWrapper) GitHub repository.
 
 ## Windows IoT Core Version Requirements
